@@ -1,0 +1,9 @@
+{% extends 'twitter_app/base.html' %}
+
+{% block content %}
+  {% for user in users %}
+    <p>
+      <a href="/profile/{{user.id}}">{{user}}</a>
+    </p>
+  {% endfor %}
+{% endblock %}

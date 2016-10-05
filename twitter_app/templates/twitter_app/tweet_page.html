@@ -1,0 +1,13 @@
+{% extends 'twitter_app/base.html' %}
+
+{% block content %}
+    <br>
+      {% for word,ids in words %}
+        {% if word in user_words %}<a href="/profile/{{ids}}">{{word}}</a>{% else %}{{word}}{% endif %}
+      {% endfor %}
+
+      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit">Like</a>
+
+      <br>
+      {{likes}}
+{% endblock %}

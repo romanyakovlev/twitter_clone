@@ -1,0 +1,46 @@
+{% extends 'twitter_app/base.html' %}
+
+
+{% block content %}
+
+
+{% if author_tweets != author %}
+
+{% if authenticated %}
+  <p>{{author_tweets}}
+        <a href="/profile/{{author_tweets.id}}?follow=1">
+
+        {% if author_tweets in follows %}
+          UnFollow
+        {% else %}
+          Follow
+        {% endif %}
+
+      </a>
+
+      {% if author_tweets in follows %}
+        Followed
+      {% else %}
+        Not Followed
+      {% endif %}
+   </p>
+
+{% endif %}
+
+{% endif %}
+
+  {% for tweet in tweets%}
+    <p><a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}</p>
+  {% endfor %}
+
+{% if author_tweets == author %}
+  <form class="" action="/profile/{{author.id}}" method="post">
+    {% csrf_token %}
+    <input type="text" name="tweet" value="">
+    <button type="submit" name="button">Tweet</button>
+  </form>
+{% endif %}
+
+{{null_text_error}}
+
+{% endblock %}
