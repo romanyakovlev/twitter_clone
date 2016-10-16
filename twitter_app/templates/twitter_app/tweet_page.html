@@ -2,12 +2,21 @@
 
 {% block content %}
     <br>
+    <div class="well-lg" style="padding-top: 30vh;">
       {% for word,ids in words %}
         {% if word in user_words %}<a href="/profile/{{ids}}">{{word}}</a>{% else %}{{word}}{% endif %}
+
       {% endfor %}
 
-      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit">Like</a>
-
+      {% if authenticated %}
+      {% if is_user_liked %}
+      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></a>  {{likes}}
+      {% else %}
+      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-heart
+glyphicon" aria-hidden="true"></span></a>  {{likes}}
+      {% endif %}
+      {% endif %}
+      </div>
       <br>
-      {{likes}}
+
 {% endblock %}

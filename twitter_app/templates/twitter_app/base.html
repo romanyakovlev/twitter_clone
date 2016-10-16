@@ -1,41 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Twitter clone</title>
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+    .row.content {height: 100vh}
+    .well{
+      border-radius: 0;
+      background:white;
+      border:0px;
+      -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.05);
+    }
+    /* Set gray background color and 100% height */
+    .sidenav {
+      height: 100%;
+    }
 
-    <!-- Bootstrap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    /* On small screens, set height to 'auto' for the grid */
+    @media screen and (max-width: auto) {
+      .row.content {height: auto;}
+    }
+  </style>
+</head>
+<body>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.2/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
-  <body>
-    <a href="/">main</a>
-    {% if author.is_authenticated == False%}
-    <a href="{% url 'login' %}">login</a>
-    {% endif %}
-    <a href="{% url 'users_page' %}">users</a>
-    {% if author.is_authenticated %}
-      <a href="{% url 'logout' %}">logout</a>
-      <a href="/profile/{{author.id}}">My tweets</a>
-      {{author}}
-    {% endif %}
+<div class="container-fluid">
+  <div class="row content">
+  <div class="col-sm-1"></div>
+    <div class="col-sm-2 sidenav hidden-xs">
+
+      <ul class="nav nav-pills nav-stacked" style = "top:25vh" data-spy="affix">
+        <h2>Twitter Clone</h2>
+        <li><a style="text-decoration: underline">You are logged as {{author}}</a>
+          {% if author.is_authenticated %}
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          <li><a href="/profile/{{author.id}}">My tweets</a></li>
+          {% endif %}
+        </li>
+        <li><a href="/">Main</a></li>
+        {% if author.is_authenticated == False%}
+        <li><a href="{% url 'login' %}">login</a></li>
+        {% endif %}
+        <li><a href="{% url 'users_page' %}">Users</a></li>
 
 
+      </ul><br>
+      </nav>
+    </div>
+    <br>
 
+  <div class="col-sm-1"></div>
+  <div class="col-sm-5">
     {% block content %}Emptyness{% endblock %}
+  </div>
+  <div class="col-sm-1"></div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  </body>
+
+<div class="col-sm-1"></div>
+</div>
+</div>
+</div>
+
+</body>
 </html>

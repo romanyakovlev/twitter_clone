@@ -96,6 +96,8 @@ def tweet_page(request,author_id,tweet_id):
             likes.remove(User.objects.get(id=request.user.id))
             return HttpResponseRedirect('/profile/'+author_id+'/tweet/'+tweet_id)
 
+    is_user_liked = request.user in likes.all()
+
     #   Работа с хэштегами: выделение имен пользовователей в твитте
 
     s = tweet.text
@@ -110,7 +112,9 @@ def tweet_page(request,author_id,tweet_id):
     return render(request,'twitter_app/tweet_page.html',{'tweet':tweet,
     'author':request.user,'words':zip(words,user_id),
     'user_words':user_words,'user_id':user_id,
-    'likes':len(likes.all()),'author_id':author_id})
+    'likes':len(likes.all()),'author_id':author_id,
+    'is_user_liked':is_user_liked,
+    'authenticated':request.user.is_authenticated()})
 
 # Страница входа
 

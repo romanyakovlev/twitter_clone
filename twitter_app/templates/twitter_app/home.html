@@ -3,6 +3,8 @@
 {% block content %}
   {% if len == 0 %}Looks like you have not follow anyone. You could watch <a href="{% url 'home' %}?tweets=all">random tweets</a>{% endif %}
     {% for tweet in tweets%}
+      <div class="well">
       <p><a href="/profile/{{tweet.author_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  <a href=/profile/{{tweet.author_id}}>{{tweet.author}}</a> {{tweet.date}}</p>
+      </div>
     {% endfor %}
 {% endblock %}

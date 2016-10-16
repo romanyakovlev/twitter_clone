@@ -29,17 +29,26 @@
 
 {% endif %}
 
-  {% for tweet in tweets%}
-    <p><a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}</p>
-  {% endfor %}
 
 {% if author_tweets == author %}
   <form class="" action="/profile/{{author.id}}" method="post">
     {% csrf_token %}
-    <input type="text" name="tweet" value="">
-    <button type="submit" name="button">Tweet</button>
+    <div class="form-group">
+    <input type="text" class="form-control" name="tweet" value="">
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-default" name="button">Tweet</button>
+    </div>
   </form>
 {% endif %}
+
+  {% for tweet in tweets%}
+    <div class="well">
+    <p><a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}</p>
+    </div>
+  {% endfor %}
+
+
 
 {{null_text_error}}
 

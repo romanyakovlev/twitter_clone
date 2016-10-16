@@ -2,8 +2,8 @@
 
 {% block content %}
   {% for user in users %}
-    <p>
+  <div class="well">
       <a href="/profile/{{user.id}}">{{user}}</a>
-    </p>
+  </div>
   {% endfor %}
 {% endblock %}
