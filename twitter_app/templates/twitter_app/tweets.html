@@ -44,7 +44,7 @@
 
   {% for tweet in tweets%}
     <div class="well">
-    <p><a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}</p>
+    <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
     </div>
   {% endfor %}
 

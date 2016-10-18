@@ -2,7 +2,7 @@
 
 {% block content %}
     <br>
-    <div class="well-lg" style="padding-top: 30vh;">
+    <div class="well-lg">
       {% for word,ids in words %}
         {% if word in user_words %}<a href="/profile/{{ids}}">{{word}}</a>{% else %}{{word}}{% endif %}
 

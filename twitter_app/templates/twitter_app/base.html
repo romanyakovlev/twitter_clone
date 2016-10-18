@@ -8,8 +8,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
+    .nav>li>a:focus, .nav>li>a:hover{
+      background-color: white;
+      text-decoration: underline;
+    }
     /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {height: 100vh}
     .well{
       border-radius: 0;
       background:white;
@@ -17,24 +20,28 @@
       -webkit-box-shadow: inset 0 0px 0px rgba(0,0,0,.05);
     }
     /* Set gray background color and 100% height */
-    .sidenav {
-      height: 100%;
+    .sidenav {height: 100%;}
+    .nav{padding-top:20vh;}
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 1500px}
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {height: auto;padding: 15px;}
+      .row.content {height: auto;}
+      .nav{padding-top:20vh}
     }
 
-    /* On small screens, set height to 'auto' for the grid */
-    @media screen and (max-width: auto) {
-      .row.content {height: auto;}
-    }
   </style>
 </head>
-<body>
+<body style="    font-size: large;
+    font-family: SANS-SERIF;">
 
 <div class="container-fluid">
   <div class="row content">
-  <div class="col-sm-1"></div>
-    <div class="col-sm-2 sidenav hidden-xs">
+  <div class="col-xs-1"></div>
+    <div class="col-xs-2 sidenav">
 
-      <ul class="nav nav-pills nav-stacked" style = "top:25vh" data-spy="affix">
+      <ul class="nav nav-pills nav-stacked" data-spy="affix">
         <h2>Twitter Clone</h2>
         <li><a style="text-decoration: underline">You are logged as {{author}}</a>
           {% if author.is_authenticated %}
@@ -49,19 +56,17 @@
         <li><a href="{% url 'users_page' %}">Users</a></li>
 
 
-      </ul><br>
+      </ul>
       </nav>
     </div>
     <br>
 
-  <div class="col-sm-1"></div>
-  <div class="col-sm-5">
+  <div class="col-xs-1"></div>
+  <div class="col-xs-6" style="padding-top: 20vh;">
     {% block content %}Emptyness{% endblock %}
   </div>
-  <div class="col-sm-1"></div>
 
-
-<div class="col-sm-1"></div>
+<div class="col-xs-2"></div>
 </div>
 </div>
 </div>
