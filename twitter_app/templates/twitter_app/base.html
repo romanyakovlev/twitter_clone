@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Bootstrap Example</title>
+  <title>Twitter Clone</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -31,17 +31,19 @@
     padding-top:20vh;
   }
 }
+.red_color{
+  color:#E57373;
+}
 
   </style>
 </head>
 <body style="    font-size: large;
     font-family: SANS-SERIF;">
 
-<div class="container">
-  <div class="col-xs-1"></div>
-    <div class="col-xs-2">
-
-      <ul class="nav nav-pills nav-stacked">
+  <div class="container-fluid">
+    <div class="col-md-1"></div>
+    <div class="col-md-2">
+      <ul class="nav fixed_for_lg_and_md">
         <h2>Twitter Clone</h2>
         <li><a style="text-decoration: underline">You are logged as {{author}}</a>
           {% if author.is_authenticated %}
@@ -57,16 +59,12 @@
 
 
       </ul>
-      </nav>
     </div>
-    <br>
 
-  <div class="col-xs-1"></div>
-  <div class="col-xs-6" style="padding-top: 20vh;">
+  <div class="col-md-6" style="padding-top:20vh;">
     {% block content %}Emptyness{% endblock %}
   </div>
-
-<div class="col-xs-2"></div>
+  <div class="col-md-3"></div>
 </div>
 
 </body>

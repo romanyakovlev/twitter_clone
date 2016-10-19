@@ -10,9 +10,11 @@ import re
 
 
 #   Представление домашней страницы
+
 def home(request):
 
-#      Проверяем, имеет ли залогиненный юзер людей, которых он зафолловил, если нет - отображаем любые твиты с помощью GET запроса
+#      Проверяем, имеет ли залогиненный юзер людей, которых он зафолловил
+#      если нет - отображаем любые твиты с помощью GET запроса
         if request.method == 'GET':
             validator = request.GET.get('tweets')
 #      Отображаем твиты для инкогнито
@@ -24,9 +26,22 @@ def home(request):
         if validator == 'all':
             followed_by_you = Tweet.objects.all()
 
-        return render(request,'twitter_app/home.html',{'tweets':followed_by_you.order_by('-date'),'author':request.user,'len':len(followed_by_you)})
+        followed_by_you = followed_by_you.order_by('-date')
 
-# Представление страницы твитов (как зашедшего пользователя, так тех, на кого он подписан)
+        likes_count = []
+        for tweet_ in followed_by_you:
+            try:
+                likes_count.append(len(Like.objects.get(tweet=tweet_).person.all()))
+            except:
+                likes_count.append(len([]))
+
+        return render(request,'twitter_app/home.html',{
+        'tweets':zip(followed_by_you, likes_count),
+        'likes_count': likes_count,
+        'author':request.user,'len':len(followed_by_you)})
+
+# Представление страницы твитов определенного пользователя
+
 def tweets(request,id):
 
     null_text_error = ''
@@ -64,9 +79,19 @@ def tweets(request,id):
     else:
         follow_list = []
 
+    tweets_list = Tweet.objects.filter(author_id=id).order_by('-date')
+
+    likes_count = []
+
+    for tweet_ in tweets_list:
+        try:
+            likes_count.append(len(Like.objects.get(tweet=tweet_).person.all()))
+        except:
+            likes_count.append(len([]))
+
     return render(request,'twitter_app/tweets.html',{'author_tweets':User.objects.get(id=id),
     'follows':follow_list,
-    'authors_page_id':id,'tweets':Tweet.objects.filter(author_id=id).order_by('-date'),'author':request.user,
+    'authors_page_id':id,'tweets':zip(tweets_list, likes_count),'author':request.user,
     'null_text_error':null_text_error,
     'authenticated':request.user.is_authenticated()})
 
@@ -154,4 +179,5 @@ def test(request):
         if x in user_words:
             user_id.append(User.objects.get(username=x[1:]).id)
         else: user_id.append(None)
-    return render(request,'twitter_app/test.html',{'words':zip(words,user_id),'user_words':user_words,'user_id':user_id})
+    return render(request,'twitter_app/test.html',{'words':zip(words,user_id),
+    'user_words':user_words,'user_id':user_id})

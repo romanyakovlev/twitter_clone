@@ -42,10 +42,12 @@
   </form>
 {% endif %}
 
-  {% for tweet in tweets%}
+  {% for tweet, like in tweets%}
     <div class="well">
     <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
+      {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
     </div>
+
   {% endfor %}
 
 
