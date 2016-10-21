@@ -1,6 +1,9 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+<div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:48px;' >
+    <h1>{{author}} think</h1>
+  </div>
     <br>
     <div class="well-lg">
       {% for word,ids in words %}

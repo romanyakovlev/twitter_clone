@@ -27,13 +27,17 @@
   .fixed_for_lg_and_md{
     position: fixed;
   }
-  ul.nav{
+  .padding-top{
     padding-top:20vh;
+  }
+  .padding-25px{
+    padding-top: 25px;
   }
 }
 .red_color{
   color:#E57373;
 }
+
 
   </style>
 </head>
@@ -43,7 +47,7 @@
   <div class="container-fluid">
     <div class="col-md-1"></div>
     <div class="col-md-2">
-      <ul class="nav fixed_for_lg_and_md">
+      <ul class="nav fixed_for_lg_and_md padding-top">
         <h2>Twitter Clone</h2>
         <li><a style="text-decoration: underline">You are logged as {{author}}</a>
           {% if author.is_authenticated %}
@@ -61,7 +65,7 @@
       </ul>
     </div>
 
-  <div class="col-md-6" style="padding-top:20vh;">
+  <div class="col-md-6">
     {% block content %}Emptyness{% endblock %}
   </div>
   <div class="col-md-3"></div>

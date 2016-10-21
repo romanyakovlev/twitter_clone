@@ -1,6 +1,9 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+  <div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:29px;' >
+      <h1>Home page</h1>
+    </div>
   {% if len == 0 %}Looks like you have not follow anyone. You could watch <a href="{% url 'home' %}?tweets=all">random tweets</a>{% endif %}
     {% for tweet, like in tweets%}
       <div class="well">

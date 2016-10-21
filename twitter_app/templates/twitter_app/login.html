@@ -1,6 +1,9 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+<div class="jumbotron" style='background-color:white; padding-left:19px' >
+    <h1>Login</h1>
+  </div>
 <form class="" action="/login/" method="post">
   {% csrf_token %}
   <div class="form-group">

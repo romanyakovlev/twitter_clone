@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_
-from .models import Tweet,Follow,Like
+from .models import Tweet, Follow, Like, Comments, UserProfile
 from django.http import HttpResponseRedirect
 from django.contrib.auth.models import User
 import re
@@ -89,11 +89,14 @@ def tweets(request,id):
         except:
             likes_count.append(len([]))
 
+    user_avatar = UserProfile.objects.get(user=User.objects.get(id=id))
+
     return render(request,'twitter_app/tweets.html',{'author_tweets':User.objects.get(id=id),
     'follows':follow_list,
     'authors_page_id':id,'tweets':zip(tweets_list, likes_count),'author':request.user,
     'null_text_error':null_text_error,
-    'authenticated':request.user.is_authenticated()})
+    'authenticated':request.user.is_authenticated(),
+    'avatar':user_avatar,})
 
 # Отдельная страница одного Твита
 
@@ -108,7 +111,7 @@ def tweet_page(request,author_id,tweet_id):
     except:
         Like(tweet=tweet).save()
     likes = Like.objects.get(tweet=tweet).person
-        #return HttpResponseRedirect('/profile/'+author_id+'/tweet/'+tweet_id)
+
 
     # Ставим лайк/дислайк для твитта
 
@@ -168,16 +171,8 @@ def users_page(request):
     return render(request,'twitter_app/users_page.html',{'users':users,'author':request.user})
 
 
-#   Тест работы с хэштегами
+#   Тесты в http:127.0.0.1:8000/test/
 
 def test(request):
-    s = """$admin лучший"""
-    user_words = re.findall(r'(?:\s|^)([$]\w+)(?:\s|$)',s)
-    words = s.split(' ')
-    user_id = []
-    for x in words:
-        if x in user_words:
-            user_id.append(User.objects.get(username=x[1:]).id)
-        else: user_id.append(None)
-    return render(request,'twitter_app/test.html',{'words':zip(words,user_id),
-    'user_words':user_words,'user_id':user_id})
+    test_user = UserProfile.objects.get(user = User.objects.get(id=1))
+    return render(request,'twitter_app/test.html',{'test':test_user.avatar.url})
