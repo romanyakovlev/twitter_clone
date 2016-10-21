@@ -3,8 +3,29 @@
 
 {% block content %}
 
+<style>
+.btn-block{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.danger:hover{
+    text-decoration: underline;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.success:hover{
+    text-decoration: underline;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+</style>
+
+
+
 <div class="jumbotron" style='background-color:white; padding-left:0px;' >
-    <h1>{{author_tweets}} thoughts</h1>
+    <h1>{% if author_tweets != author %}{{author_tweets}}{% else %}My{% endif %} thoughts</h1>
   </div>
 
 <div class="row">
@@ -16,23 +37,27 @@
 
 {% if authenticated %}
 
-  <p>{{author_tweets}}
-        <a href="/profile/{{author_tweets.id}}?follow=1">
+<p>
+<a class="btn btn-block btn-lg {% if author_tweets not in follows %} danger {% endif %}
+  {% if author_tweets in follows %} success {% endif %}
+  " role="button" href="/profile/{{author_tweets.id}}?follow=1">
+  {% if author_tweets in follows %}
+    UnFollow
+  {% else %}
+    Follow
+  {% endif %}
+</a>
+</p>
 
-        {% if author_tweets in follows %}
-          UnFollow
-        {% else %}
-          Follow
-        {% endif %}
-
-      </a>
-
+<p style="display: flex;
+justify-content: center; /* align horizontal */
+align-items: center;">
       {% if author_tweets in follows %}
-        Followed
+        You are Followed
       {% else %}
-        Not Followed
+        You are Not Followed
       {% endif %}
-   </p>
+</p>
 
 {% endif %}
 
