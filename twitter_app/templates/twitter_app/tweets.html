@@ -30,8 +30,9 @@
 
 <div class="row">
 
-<div class="col-md-3">
-    <img src="{{avatar.avatar.url}}" alt="" />
+<div class=" col-md-4 col-lg-3" style="display:inline-block">
+
+    <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
 
 {% if author_tweets != author %}
 
@@ -64,7 +65,7 @@ align-items: center;">
 {% endif %}
 </div>
 
-<div class="col-md-9">
+<div class="col-md-8 col-lg-9">
 
 {% if author_tweets == author %}
   <form class="" action="/profile/{{author.id}}" method="post">
@@ -79,7 +80,7 @@ align-items: center;">
 {% endif %}
 
   {% for tweet, like in tweets%}
-    <div class="well">
+    <div class="well" style="padding-left:0px">
     <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
       {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
     </div>

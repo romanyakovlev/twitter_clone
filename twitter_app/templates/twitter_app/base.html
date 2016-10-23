@@ -23,7 +23,7 @@
   background-color: white;
   text-decoration:underline;
 }
-@media (min-width: 992px) {
+@media (min-width: 768px) {
   .fixed_for_lg_and_md{
     position: fixed;
   }
@@ -33,22 +33,27 @@
   .padding-25px{
     padding-top: 25px;
   }
+  .jumbotron{
+    height: 20vh;
+  }
 }
 .red_color{
-  color:#EF9A9A
-;
+  color:#EF9A9A;
+}
+
+.nav{
+  width:inherit;
 }
 
 
 
   </style>
 </head>
-<body style="    font-size: large;
-    font-family: SANS-SERIF;">
+<body style="font-size: large;font-family: SANS-SERIF;">
 
   <div class="container-fluid">
-    <div class="col-md-1"></div>
-    <div class="col-md-2">
+    <div class="col-md-0 col-lg-1"></div>
+    <div class="col-sm-4 col-md-3 col-lg-2">
       <ul class="nav fixed_for_lg_and_md padding-top">
         <h2>Twitter Clone</h2>
         <li><a style="text-decoration: underline">You are logged as {{author}}</a>
@@ -67,10 +72,10 @@
       </ul>
     </div>
 
-  <div class="col-md-6">
+  <div class="col-sm-8 col-md-9 col-lg-6">
     {% block content %}Emptyness{% endblock %}
   </div>
-  <div class="col-md-3"></div>
+  <div class="col-md-0 col-lg-3"></div>
 </div>
 
 </body>
