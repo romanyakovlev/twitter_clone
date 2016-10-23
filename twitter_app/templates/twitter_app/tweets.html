@@ -3,44 +3,92 @@
 
 {% block content %}
 
+<style>
+.btn-block{
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+}
+.danger:hover{
+    text-decoration: underline;
+    color: #fff;
+    background-color: #5cb85c;
+    border-color: #4cae4c;
+}
+.success:hover{
+    text-decoration: underline;
+    color: #fff;
+    background-color: #d9534f;
+    border-color: #d43f3a;
+}
+</style>
+
+
+
+<div class="jumbotron" style='background-color:white; padding-left:0px;' >
+    <h1>{% if author_tweets != author %}{{author_tweets}}{% else %}My{% endif %} thoughts</h1>
+  </div>
+
+<div class="row">
+
+<div class=" col-md-4 col-lg-3" style="display:inline-block">
+
+    <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
 
 {% if author_tweets != author %}
 
 {% if authenticated %}
-  <p>{{author_tweets}}
-        <a href="/profile/{{author_tweets.id}}?follow=1">
 
-        {% if author_tweets in follows %}
-          UnFollow
-        {% else %}
-          Follow
-        {% endif %}
+<p>
+<a class="btn btn-block btn-lg {% if author_tweets not in follows %} danger {% endif %}
+  {% if author_tweets in follows %} success {% endif %}
+  " role="button" href="/profile/{{author_tweets.id}}?follow=1">
+  {% if author_tweets in follows %}
+    UnFollow
+  {% else %}
+    Follow
+  {% endif %}
+</a>
+</p>
 
-      </a>
-
+<p style="display: flex;
+justify-content: center; /* align horizontal */
+align-items: center;">
       {% if author_tweets in follows %}
-        Followed
+        You are Followed
       {% else %}
-        Not Followed
+        You are Not Followed
       {% endif %}
-   </p>
+</p>
 
 {% endif %}
 
 {% endif %}
+</div>
 
-  {% for tweet in tweets%}
-    <p><a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}</p>
-  {% endfor %}
+<div class="col-md-8 col-lg-9">
 
 {% if author_tweets == author %}
   <form class="" action="/profile/{{author.id}}" method="post">
     {% csrf_token %}
-    <input type="text" name="tweet" value="">
-    <button type="submit" name="button">Tweet</button>
+    <div class="form-group">
+    <input type="text" class="form-control" name="tweet" value="" placeholder="Say somethin' about somethin'">
+    </div>
+    <div class="form-group">
+    <button type="submit" class="btn btn-default" name="button">Tweet</button>
+    </div>
   </form>
 {% endif %}
 
+  {% for tweet, like in tweets%}
+    <div class="well" style="padding-left:0px">
+    <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
+      {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
+    </div>
+
+  {% endfor %}
+
+</div>
+</div>
 {{null_text_error}}
 
 {% endblock %}

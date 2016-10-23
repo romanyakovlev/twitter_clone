@@ -1,10 +1,19 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+<div class="jumbotron" style='background-color:white; padding-left:19px' >
+    <h1>Login</h1>
+  </div>
 <form class="" action="/login/" method="post">
   {% csrf_token %}
-  login<input type="login" name="login" value="">
-  pass<input type="password" name="password" value="">
-  <input type="submit" name="name" value="Submit">
+  <div class="form-group">
+    <label for="usr">Login:</label>
+    <input type="login" name="login" class="form-control" value="">
+  </div>
+  <div class="form-group">
+    <label for="usr">Password:</label>
+    <input type="password" class="form-control" name="password" value="">
+  </div>
+  <button type="submit" class="btn btn-default" name="name" value="Submit">Login</button>
 </form>
 {% endblock %}

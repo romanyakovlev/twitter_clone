@@ -1,8 +1,16 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+  <div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:29px;' >
+      <h1>Home page</h1>
+    </div>
   {% if len == 0 %}Looks like you have not follow anyone. You could watch <a href="{% url 'home' %}?tweets=all">random tweets</a>{% endif %}
-    {% for tweet in tweets%}
-      <p><a href="/profile/{{tweet.author_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  <a href=/profile/{{tweet.author_id}}>{{tweet.author}}</a> {{tweet.date}}</p>
+    {% for tweet, like in tweets%}
+      <div class="well" >
+      <p><a href="/profile/{{tweet.author_id}}/tweet/{{tweet.id}}" style="">{{tweet.text}}</a>  <a href=/profile/{{tweet.author_id}}>{{tweet.author}}</a> {{tweet.date}}
+        {{like}} <span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
+      </p>
+
+      </div>
     {% endfor %}
 {% endblock %}

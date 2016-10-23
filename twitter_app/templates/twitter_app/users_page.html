@@ -1,9 +1,12 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+<div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:29px;' >
+    <h1>Users</h1>
+  </div>
   {% for user in users %}
-    <p>
+  <div class="well">
       <a href="/profile/{{user.id}}">{{user}}</a>
-    </p>
+  </div>
   {% endfor %}
 {% endblock %}
