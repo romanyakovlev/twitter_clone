@@ -1,6 +1,5 @@
 {% extends 'twitter_app/base.html' %}
 
-
 {% block content %}
 
 <style>
@@ -22,68 +21,63 @@
 }
 </style>
 
-
-
 <div class="jumbotron" style='background-color:white; padding-left:0px;' >
     <h1>{% if author_tweets != author %}{{author_tweets}}{% else %}My{% endif %} thoughts</h1>
   </div>
 
 <div class="row">
 
-<div class=" col-md-4 col-lg-3" style="display:inline-block">
+<div class="col-sm-4 col-md-4 col-lg-3" style="display:inline-block">
 
     <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
 
 {% if author_tweets != author %}
 
-{% if authenticated %}
-
-<p>
-<a class="btn btn-block btn-lg {% if author_tweets not in follows %} danger {% endif %}
-  {% if author_tweets in follows %} success {% endif %}
-  " role="button" href="/profile/{{author_tweets.id}}?follow=1">
-  {% if author_tweets in follows %}
-    UnFollow
-  {% else %}
-    Follow
-  {% endif %}
-</a>
-</p>
-
-<p style="display: flex;
-justify-content: center; /* align horizontal */
-align-items: center;">
+  {% if authenticated %}
+  <p><a class="btn btn-block btn-lg {% if author_tweets not in follows %} danger {% endif %}
+      {% if author_tweets in follows %} success {% endif %}
+      " role="button" href="/profile/{{author_tweets.id}}?follow=1">
       {% if author_tweets in follows %}
-        You are Followed
+        UnFollow
       {% else %}
-        You are Not Followed
+        Follow
       {% endif %}
-</p>
+    </a></p>
 
-{% endif %}
+  <p style="display: flex;
+  justify-content: center; /* align horizontal */
+  align-items: center;">
+        {% if author_tweets in follows %}
+          You are Followed
+        {% else %}
+          You are Not Followed
+        {% endif %}
+  </p>
+  {% endif %}
 
 {% endif %}
 </div>
 
-<div class="col-md-8 col-lg-9">
+<div class="col-sm-8 col-md-8 col-lg-9">
 
+<br class="sm_screen_show">
 {% if author_tweets == author %}
-  <form class="" action="/profile/{{author.id}}" method="post">
+<form class="" action="/profile/{{author.id}}" method="post">
     {% csrf_token %}
     <div class="form-group">
-    <input type="text" class="form-control" name="tweet" value="" placeholder="Say somethin' about somethin'">
+    <input type="text" class="form-control" name="tweet" value="" placeholder="What you can say?">
     </div>
     <div class="form-group">
     <button type="submit" class="btn btn-default" name="button">Tweet</button>
     </div>
-  </form>
+</form>
 {% endif %}
 
   {% for tweet, like in tweets%}
-    <div class="well" style="padding-left:0px">
+<div class="well" style="padding-left:0px">
     <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
-      {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
-    </div>
+    {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
+</div>
 
   {% endfor %}
 

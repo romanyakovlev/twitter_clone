@@ -1,25 +1,62 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
-<div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:48px;' >
-    <h1>{{author}} think</h1>
-  </div>
-    <br>
-    <div class="well-lg">
+
+<div class="jumbotron" style='background-color:white; padding-left:0px;padding-bottom:48px;' >
+  <h1>{{author}} think</h1>
+</div>
+<br>
+<div class="well-lg" style="padding-left:0px;">
+
       {% for word,ids in words %}
         {% if word in user_words %}<a href="/profile/{{ids}}">{{word}}</a>{% else %}{{word}}{% endif %}
-
       {% endfor %}
 
       {% if authenticated %}
+
       {% if is_user_liked %}
-      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span></a>  {{likes}}
+        <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button">
+        <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>
+        </a>{{likes}}
       {% else %}
-      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button"><span class="glyphicon glyphicon-heart
-glyphicon" aria-hidden="true"></span></a>  {{likes}}
+      <a href="/profile/{{author_id}}/tweet/{{tweet.id}}/?like=likeit" class="btn btn-default" role="button">
+        <span class="glyphicon glyphicon-heart glyphicon" aria-hidden="true"></span>
+        </a> {{likes}}
       {% endif %}
+
+      {% else %}
+      <a href="/login/" class="btn btn-default" role="button"><span class="glyphicon glyphicon-heart
+        glyphicon" aria-hidden="true"></span></a>  {{likes}}
       {% endif %}
-      </div>
-      <br>
+
+</div>
+
+{% if authenticated %}
+  <form class="" action="/profile/{{author_id}}/tweet/{{tweet.id}}/" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+            <input type="text" class="form-control" name="text" value="" placeholder="Tell us about something important">
+            </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-default" name="button">Comment</button>
+            </div>
+  </form>
+{% endif %}
+
+{% if comments %}
+  Comments
+{% endif %}
+
+{% for comment in comments %}
+  <div class="media">
+    <div class="media-left">
+      <img src="{{comment.user.avatar.url}}" class="media-object" style="width:60px">
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading"><a href="/profile/{{comment.user.user.id}}">{{comment.user.user}}</a></h4>
+      <p>{{comment.text}}</p>
+    </div>
+  </div>
+{% endfor %}
 
 {% endblock %}

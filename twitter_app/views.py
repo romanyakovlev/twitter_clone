@@ -106,12 +106,12 @@ def tweet_page(request,author_id,tweet_id):
 
     # Попытка получить количество лайнов, если нету - обрабатывает
     # исключение и создает объект
+    
     try:
         Like.objects.get(tweet=tweet)
     except:
         Like(tweet=tweet).save()
     likes = Like.objects.get(tweet=tweet).person
-
 
     # Ставим лайк/дислайк для твитта
 
@@ -128,6 +128,13 @@ def tweet_page(request,author_id,tweet_id):
 
     #   Работа с хэштегами: выделение имен пользовователей в твитте
 
+    if request.method == "POST":
+        text = request.POST.get('text')
+        user_profile = UserProfile.objects.get(user=request.user)
+        Comments(user=user_profile,comment=tweet,text=text).save()
+
+    comments = Comments.objects.filter(comment=tweet)
+
     s = tweet.text
     user_words = re.findall(r'(?:\s|^)([$]\w+)(?:\s|$)',s)
     words = s.split(' ')
@@ -142,7 +149,8 @@ def tweet_page(request,author_id,tweet_id):
     'user_words':user_words,'user_id':user_id,
     'likes':len(likes.all()),'author_id':author_id,
     'is_user_liked':is_user_liked,
-    'authenticated':request.user.is_authenticated()})
+    'authenticated':request.user.is_authenticated(),
+    'comments':comments,})
 
 # Страница входа
 

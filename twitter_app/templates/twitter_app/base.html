@@ -8,11 +8,13 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <style>
+    .nav>li>a{
+          padding-left: 0px;
+    }
     .nav>li>a:focus, .nav>li>a:hover{
       background-color: white;
       text-decoration: underline;
     }
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .well{
       border-radius: 0;
       background:white;
@@ -36,24 +38,24 @@
   .jumbotron{
     height: 20vh;
   }
+  .sm_screen_show{
+    display: none;
+  }
 }
 .red_color{
   color:#EF9A9A;
 }
-
 .nav{
   width:inherit;
 }
-
-
 
   </style>
 </head>
 <body style="font-size: large;font-family: SANS-SERIF;">
 
   <div class="container-fluid">
-    <div class="col-md-0 col-lg-1"></div>
-    <div class="col-sm-4 col-md-3 col-lg-2">
+    <div class="col-md-0 col-lg-2"></div>
+    <div class="col-sm-3 col-md-3 col-lg-2">
       <ul class="nav fixed_for_lg_and_md padding-top">
         <h2>Twitter Clone</h2>
         <li><a style="text-decoration: underline">You are logged as {{author}}</a>
@@ -63,7 +65,7 @@
           {% endif %}
         </li>
         <li><a href="/">Main</a></li>
-        {% if author.is_authenticated == False%}
+        {% if author.is_authenticated == False %}
         <li><a href="{% url 'login' %}">login</a></li>
         {% endif %}
         <li><a href="{% url 'users_page' %}">Users</a></li>
@@ -72,10 +74,10 @@
       </ul>
     </div>
 
-  <div class="col-sm-8 col-md-9 col-lg-6">
+  <div class="col-sm-9 col-md-9 col-lg-5">
     {% block content %}Emptyness{% endblock %}
   </div>
-  <div class="col-md-0 col-lg-3"></div>
+  <div class="col-md-0 col-lg-5"></div>
 </div>
 
 </body>

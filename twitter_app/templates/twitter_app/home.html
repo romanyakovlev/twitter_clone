@@ -6,7 +6,7 @@
     </div>
   {% if len == 0 %}Looks like you have not follow anyone. You could watch <a href="{% url 'home' %}?tweets=all">random tweets</a>{% endif %}
     {% for tweet, like in tweets%}
-      <div class="well" >
+      <div class="well" style="top:-19px">
       <p><a href="/profile/{{tweet.author_id}}/tweet/{{tweet.id}}" style="">{{tweet.text}}</a>  <a href=/profile/{{tweet.author_id}}>{{tweet.author}}</a> {{tweet.date}}
         {{like}} <span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
       </p>
