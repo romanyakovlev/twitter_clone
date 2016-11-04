@@ -4,10 +4,10 @@ from django.shortcuts import render
 from django.contrib.auth import authenticate, logout
 from django.contrib.auth import login as login_
 from .models import Tweet, Follow, Like, Comments, UserProfile
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.contrib.auth.models import User
 import re
-
+from twitter_app.forms import UserProfileForm
 
 #   Представление домашней страницы
 
@@ -106,7 +106,7 @@ def tweet_page(request,author_id,tweet_id):
 
     # Попытка получить количество лайнов, если нету - обрабатывает
     # исключение и создает объект
-    
+
     try:
         Like.objects.get(tweet=tweet)
     except:
@@ -176,11 +176,30 @@ def user_logout(request):
 
 def users_page(request):
     users = User.objects.all()
-    return render(request,'twitter_app/users_page.html',{'users':users,'author':request.user})
+    user_avatar = UserProfile.objects.all()
+    return render(request,'twitter_app/users_page.html',{'users':user_avatar,'author':request.user})
 
 
 #   Тесты в http:127.0.0.1:8000/test/
 
 def test(request):
+    print(vars(request))
     test_user = UserProfile.objects.get(user = User.objects.get(id=1))
     return render(request,'twitter_app/test.html',{'test':test_user.avatar.url})
+
+def del_tweet(request):
+    if request.method == "GET":
+        id_ = request.GET.get('del_id')
+        Tweet.objects.get(id=id_).delete()
+        return HttpResponseRedirect('/profile/'+str(request.user.id))
+
+def edit_profile(request):
+    userprofile = UserProfile.objects.get(user=request.user)
+    form = UserProfileForm({'image':userprofile.avatar})
+    if request.method == "POST":
+        form = UserProfileForm(request.POST, request.FILES)
+        if form.is_valid():
+            userprofile.avatar = form.cleaned_data['image']
+            userprofile.save()
+            return HttpResponseRedirect('/profile/{}'.format(request.user.id))
+    return render(request, 'twitter_app/profile.html',{'userprofile': userprofile, 'selecteduser': request.user, 'form': form})

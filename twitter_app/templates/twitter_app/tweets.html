@@ -19,6 +19,12 @@
     background-color: #d9534f;
     border-color: #d43f3a;
 }
+.del-button{
+  color:black;
+}
+.del-button:hover{
+  color:green;
+}
 </style>
 
 <div class="jumbotron" style='background-color:white; padding-left:0px;' >
@@ -77,6 +83,9 @@
 <div class="well" style="padding-left:0px">
     <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
     {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
+    {% if author_tweets == author %}
+    <a href="{% url 'delete' %}?del_id={{tweet.id}}"><span class="glyphicon glyphicon-remove del-button" aria-hidden="true"></span></a>
+     {% endif %}
 </div>
 
   {% endfor %}
