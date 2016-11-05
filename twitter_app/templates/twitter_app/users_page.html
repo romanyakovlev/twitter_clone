@@ -1,12 +1,31 @@
 {% extends 'twitter_app/base.html' %}
 
 {% block content %}
+<style>
+  .my-thumb{
+    text-align: center;
+    vertical-align: middle;
+    line-height: 60px;
+  }
+</style>
 <div class="jumbotron" style='background-color:white; padding-left:19px;padding-bottom:29px;' >
     <h1>Users</h1>
   </div>
-  {% for user in users %}
-  <div class="well">
-      <a href="/profile/{{user.id}}">{{user}}</a>
+
+  <div class="container-fluid">
+    <div class="row">
+        {% for user in users %}
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-12 thumb">
+                <a class="thumbnail" href="/profile/{{user.user.id}}">
+                    <img src="{{user.avatar.url}}" alt="">
+                    <div class="my-thumb">{{user.user.username}}</div>
+                </a>
+
+        </div>
+        {% endfor %}
+    </div>
+
   </div>
-  {% endfor %}
+
+
 {% endblock %}

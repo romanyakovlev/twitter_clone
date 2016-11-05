@@ -2,6 +2,8 @@ from django.conf.urls import url, include
 from . import views
 
 urlpatterns = [
+    url(r'edit_profile/', views.edit_profile),
+    url(r'del/', views.del_tweet, name='delete'),
     url(r'^$',views.home, name = 'home'),
     url(r'^logout/',views.user_logout, name = 'logout'),
     url(r'^login/', views.login,name = 'login'),

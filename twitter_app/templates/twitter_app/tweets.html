@@ -19,6 +19,17 @@
     background-color: #d9534f;
     border-color: #d43f3a;
 }
+.del-button{
+  color:black;
+}
+.del-button:hover{
+  color:green;
+}
+.my-thumb{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60px;
+}
 </style>
 
 <div class="jumbotron" style='background-color:white; padding-left:0px;' >
@@ -27,9 +38,16 @@
 
 <div class="row">
 
-<div class="col-sm-4 col-md-4 col-lg-3" style="display:inline-block">
+<div class="col-sm-4 col-md-4 col-lg-4" style="display:inline-block">
 
-    <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
+    <div class="thumbnail">
+      <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
+      {% if author_tweets == author %}
+      <div class="my-thumb">
+        <a href="/edit_profile/">Edit photo</a>
+      </div>
+      {% endif %}
+
 
 {% if author_tweets != author %}
 
@@ -57,8 +75,9 @@
 
 {% endif %}
 </div>
+</div>
 
-<div class="col-sm-8 col-md-8 col-lg-9">
+<div class="col-sm-8 col-md-8 col-lg-8" {% if author_tweets != author %} style="top: -19px;"{% endif %}>
 
 <br class="sm_screen_show">
 {% if author_tweets == author %}
@@ -77,6 +96,9 @@
 <div class="well" style="padding-left:0px">
     <a href="/profile/{{authors_page_id}}/tweet/{{tweet.id}}">{{tweet.text}}</a>  {{tweet.author}} {{tweet.date}}
     {{like}}<span class="glyphicon glyphicon-heart red_color" aria-hidden="true"></span>
+    {% if author_tweets == author %}
+    <a href="{% url 'delete' %}?del_id={{tweet.id}}"><span class="glyphicon glyphicon-remove del-button" aria-hidden="true"></span></a>
+     {% endif %}
 </div>
 
   {% endfor %}
