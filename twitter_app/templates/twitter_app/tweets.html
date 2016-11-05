@@ -25,6 +25,11 @@
 .del-button:hover{
   color:green;
 }
+.my-thumb{
+  text-align: center;
+  vertical-align: middle;
+  line-height: 60px;
+}
 </style>
 
 <div class="jumbotron" style='background-color:white; padding-left:0px;' >
@@ -33,9 +38,16 @@
 
 <div class="row">
 
-<div class="col-sm-4 col-md-4 col-lg-3" style="display:inline-block">
+<div class="col-sm-4 col-md-4 col-lg-4" style="display:inline-block">
 
-    <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
+    <div class="thumbnail">
+      <img style="width:100%" src="{{avatar.avatar.url}}" alt="" />
+      {% if author_tweets == author %}
+      <div class="my-thumb">
+        <a href="/edit_profile/">Edit photo</a>
+      </div>
+      {% endif %}
+
 
 {% if author_tweets != author %}
 
@@ -63,8 +75,9 @@
 
 {% endif %}
 </div>
+</div>
 
-<div class="col-sm-8 col-md-8 col-lg-9">
+<div class="col-sm-8 col-md-8 col-lg-8" {% if author_tweets != author %} style="top: -19px;"{% endif %}>
 
 <br class="sm_screen_show">
 {% if author_tweets == author %}
